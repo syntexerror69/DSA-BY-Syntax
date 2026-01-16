@@ -1,0 +1,62 @@
+https://leetcode.com/problems/3sum-closest/
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+
+int threesumclosest(vector<int> &num, int target){
+    sort(num.begin(), num.end());
+
+    int n  = num.size();
+
+    int ans = 0;
+    int mindiff = INT64_MAX;
+
+    for (int i = 0; i < n-1; i++){
+        int j = i+1;
+        int k = n-1;
+
+        while (j<k){
+        int tsum = num[i]+num[j]+num[j];
+           if (tsum>target){
+            int ndiff1 = tsum-target;
+            if (ndiff1<mindiff){
+                mindiff = ndiff1;
+                ans = tsum;
+            }
+            k--;
+            
+           }else if (tsum<target){  
+              int ndiff2 = target - tsum;
+              if (ndiff2<mindiff){
+                mindiff = ndiff2;
+                ans = tsum;
+
+               }
+               j++;
+            
+               
+            } else{
+            return tsum;
+            }
+        
+        
+        }
+    
+    
+    }
+    return ans;
+}
+
+int main(){
+    int target = 1;
+
+    vector<int> num = {-1,2,1,-4};
+    int result = threesumclosest(num, target);
+    
+    cout<<result<<endl;
+
+    return 0;
+}
