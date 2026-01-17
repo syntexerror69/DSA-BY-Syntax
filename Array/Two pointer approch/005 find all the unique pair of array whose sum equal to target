@@ -1,0 +1,64 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+vector<pair<int , int>>   allpair(vector<int> &num , int target) {
+
+    sort(num.begin() , num.end());
+    
+    int n = num.size();
+    int i = 0;
+    int j = n-1;
+
+    vector<pair<int,int>> ans ;
+
+    while (i<j){
+        int psum = num[i] + num[j];
+        if(psum == target){
+            ans.push_back({num[i] , num[j]});
+            i++;
+            j--;
+
+            while (i<j && num[i] == num[i-1])
+            {
+                i++;
+            }
+            
+            
+            while (i<j && num[j] == num[j+1])
+            {
+                j--;
+            }
+            
+        }else if (psum<target){
+            i++;
+
+        }else{
+            j--;
+        }
+        
+
+    }
+return ans;
+
+
+}
+int main(){
+
+    int target = 9;
+
+    vector<int> num = {2,6,6,5,3,5,4,4,4};
+
+    vector<pair<int, int>> result= allpair(num , target);
+    
+
+    for (pair<int , int >  value : result)
+    {
+        cout<<value.first<<" "<<value.second;
+        cout<<endl;
+    }
+    
+return 0;
+
+}
