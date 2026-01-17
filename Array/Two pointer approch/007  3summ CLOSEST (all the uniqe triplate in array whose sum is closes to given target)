@@ -23,16 +23,16 @@ int threesumclosest(vector<int> &num, int target){
            if (tsum>target){
             int ndiff1 = tsum-target;
             if (ndiff1<mindiff){
-                mindiff = ndiff1;
                 ans = tsum;
+                mindiff = ndiff1;
             }
             k--;
             
            }else if (tsum<=target){  
               int ndiff2 = target - tsum;
-              if (ndiff2<mindiff){
-                mindiff = ndiff2;
+              if (ndiff2<mindiff){ 
                 ans = tsum;
+                mindiff = ndiff2;
                 }
                j++;
               } 
