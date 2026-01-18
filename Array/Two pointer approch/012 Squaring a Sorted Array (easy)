@@ -5,59 +5,84 @@ https://leetcode.com/problems/squares-of-a-sorted-array/
 #include<algorithm>
 using namespace std;
 
-vector<int> sqrarray(vector<int> &nums) {
-    vector<int> n ;
-    vector<int> p ;
-    
+vector<int> sortedSquares(vector<int>& nums) {
+        int siz=nums.size();
+        vector<int> neg;
+        vector<int> pos;
+      
+        for(int i=0;i<siz;i++)
+        {
+            if(nums[i]<0)
+            neg.push_back(nums[i]);
+            else{
+            pos.push_back(nums[i]);
+            }
 
-    vector<int> ans ;
-
-    for (int i = 0; i < nums.size(); i++){
-        if(nums[i]>=0){
-            p.push_back(nums[i]);
-        }else{
-            n.push_back(nums[i]);
         }
+        if(neg.size()==0) 
+        {
+            for(int i=0;i<pos.size();i++){
+            pos[i]=pos[i]*pos[i];
+            }
+            return pos;
+        }
+        if(pos.size()==0) 
+        {
+            for(int i=0;i<neg.size();i++){
+            neg[i]=neg[i]*neg[i];
+            }
+            reverse(neg.begin(),neg.end());
+            return neg;
+        }
+       
         
 
-    }
-    for (int i = 0; i < n.size(); i++)
-    {
-        n[i] = n[i] *n[i];
-    }
-    
-    sort(n.begin(), n.end());
 
-    for (int i = 0; i < p.size(); i++)
-    {
-        p[i] = p[i] *p[i];
-    }
-    
-    sort(p.begin(), p.end());
+        //squiring both the array but in case of negative we have to reverse the array
+        
+        for(int i=0;i<neg.size();i++)
+        neg[i]=neg[i]*neg[i];
 
-    int neg = 0;
-    int posi = 0;
-    while(neg<n.size() && posi<p.size()){
-        if(n[neg]<p[posi]){
-            ans.push_back(n[neg]);
-            neg++;
-        }else{
-            ans.push_back(p[posi]);
-            posi++;
+        reverse(neg.begin(),neg.end());
+
+        for(int i=0;i<pos.size();i++)
+        pos[i]=pos[i]*pos[i];
+
+        // now we apply two pointer approch on both array and store the minimum value in res array
+        int i=0,j=0;
+        
+        int n=neg.size();
+        int m=pos.size();
+
+        vector<int> res;
+        while(i<n and j<m)
+        {
+            if(neg[i]<=pos[j])
+            {
+                res.push_back(neg[i]);
+                
+                i++;
+            }
+            else
+            {
+                res.push_back(pos[j]);
+                
+                
+                j++;
+            }
+        } 
+        while(i<n)
+        {
+            res.push_back(neg[i]);
+                i++;
         }
+        while(j<m)
+        {
+            res.push_back(pos[j]);
+                j++;
+        }
+        return res;
     }
-    while (neg<n.size()){
-        ans.push_back(n[neg]);
-        neg++;
-    }
-    
-    while (posi<p.size()){
-        ans.push_back(p[posi]);
-        posi++;
-    }
-
-    return ans;
-}
 
 
     
@@ -65,7 +90,7 @@ int main(){
 
     vector<int> nums = {-4,-1,0,3,10};
 
-vector<int> result = sqrarray(nums );
+vector<int> result = sortedSquares(nums );
 
 for (int  i = 0; i < result.size(); i++){
     cout<<result[i]<<" ";
