@@ -1,0 +1,76 @@
+https://leetcode.com/problems/squares-of-a-sorted-array/
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+vector<int> sqrarray(vector<int> &nums) {
+    vector<int> n ;
+    vector<int> p ;
+    
+
+    vector<int> ans ;
+
+    for (int i = 0; i < nums.size(); i++){
+        if(nums[i]>=0){
+            p.push_back(nums[i]);
+        }else{
+            n.push_back(nums[i]);
+        }
+        
+
+    }
+    for (int i = 0; i < n.size(); i++)
+    {
+        n[i] = n[i] *n[i];
+    }
+    
+    sort(n.begin(), n.end());
+
+    for (int i = 0; i < p.size(); i++)
+    {
+        p[i] = p[i] *p[i];
+    }
+    
+    sort(p.begin(), p.end());
+
+    int neg = 0;
+    int posi = 0;
+    while(neg<n.size() && posi<p.size()){
+        if(n[neg]<p[posi]){
+            ans.push_back(n[neg]);
+            neg++;
+        }else{
+            ans.push_back(p[posi]);
+            posi++;
+        }
+    }
+    while (neg<n.size()){
+        ans.push_back(n[neg]);
+        neg++;
+    }
+    
+    while (posi<p.size()){
+        ans.push_back(p[posi]);
+        posi++;
+    }
+
+    return ans;
+}
+
+
+    
+int main(){
+
+    vector<int> nums = {-4,-1,0,3,10};
+
+vector<int> result = sqrarray(nums );
+
+for (int  i = 0; i < result.size(); i++){
+    cout<<result[i]<<" ";
+}
+
+return 0;
+
+}
