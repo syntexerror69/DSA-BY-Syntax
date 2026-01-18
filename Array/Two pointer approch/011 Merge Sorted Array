@@ -1,0 +1,75 @@
+https://leetcode.com/problems/merge-sorted-array/
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+vector<int> merge(int numsone[],int m, int nums2[],int n) {
+
+
+    int i = 0;
+    int j = 0;
+    int p = 0;
+
+    vector<int> ans( (m+n) ,0 );
+
+    while(i<m && j<n){
+        if(numsone[i]<= nums2[j]){
+            ans[p] = numsone[i];
+            i++;
+            p++;
+
+
+
+        }else if(numsone[i]>nums2[j]){
+            ans[p]=nums2[j];
+            j++;
+            p++;
+
+
+        }
+
+    }
+
+    while (i<m){
+        ans[p]=numsone[i];
+        i++;
+        p++;
+    }
+
+    while (j<n){
+        ans[p]=nums2[j];
+        j++;
+        p++;
+    }
+
+
+   for (int  i = 0; i < ans.size(); i++){
+    numsone[i] = ans[i];
+   }
+   return ans;
+
+}
+int main(){
+
+
+    int m = 3;    
+     int  n = 3;
+    
+
+    int numsone[] = {1,2,3,0,0,0};
+    int nums2 [] = {2,5,6};
+
+    int l = sizeof(numsone)/sizeof(numsone[0]);
+    
+
+    merge(numsone,m,nums2,n);
+
+    for (int i = 0; i < l; i++){
+        cout<<numsone[i]<<" ";
+    }
+
+return 0;
+
+}
